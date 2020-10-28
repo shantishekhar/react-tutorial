@@ -10,7 +10,7 @@ exports.userById=(req,res,next,id)=>{
                 error:"User not found"
             })
         }
-        
+
         req.profile=user; //adds profile objectin request with user info
         next();
     })
@@ -32,7 +32,7 @@ exports.allUsers= (req,res,next)=>{
                 error:err
             })
         }
-        res.json({users})
+        res.json(users)
     }).select("name email updated createdAt")
 }
 
@@ -46,7 +46,7 @@ exports.updateUser=(req,res,next)=>{
     let user=req.profile;
     user=_.extend(user,req.body);//extebd mutate the source object
     user.updated=Date.now()
-   
+
     user.save((err)=>{
         if(err){
             return res.status(400).json({
@@ -67,8 +67,7 @@ exports.deleteUser=(req,res,next)=>{
                 error:err
             })
         }
-         
+
         res.json({message:"user deleted successfullly"});
     })
 }
-
